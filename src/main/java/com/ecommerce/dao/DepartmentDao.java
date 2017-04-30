@@ -1,7 +1,9 @@
 package com.ecommerce.dao;
 
-public class DepartmentDao {
-  
-  
+import org.springframework.data.repository.CrudRepository;
 
+import com.ecommerce.model.Department;
+
+public interface DepartmentDao extends CrudRepository<Department, Integer> {
+    
 }

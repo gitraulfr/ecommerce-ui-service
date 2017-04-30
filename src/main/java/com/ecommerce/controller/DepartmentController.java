@@ -37,9 +37,14 @@ public class DepartmentController extends BaseController {
     return "DepartmentController test success!";
   }
   
-  @RequestMapping(value = "findAll", method = RequestMethod.GET)
-  public Iterable<Department> findAll() {
+  @RequestMapping(value = "findAll/{token}", method = RequestMethod.POST)
+  public Iterable<Department> findAll(@PathVariable("token") String token) {
     return departmentService.findAll();
+  }
+  
+  @RequestMapping(value = "findOne/{token}/{id}", method = RequestMethod.POST)
+  public Department findOne(@PathVariable("token") String token, @PathVariable("id") Integer id) {
+    return departmentService.findOne(id);
   }
     
   @ApiOperation(value = "Return all departments information", nickname = "getAllDepartments", httpMethod = "POST")

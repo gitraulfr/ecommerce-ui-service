@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -19,7 +20,8 @@ public class Department implements Serializable {
   private static final long serialVersionUID = 2910962071118198333L;
   
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="wine.wine_department_niddepartment_seq")
+  @SequenceGenerator(name="wine.wine_department_niddepartment_seq", sequenceName="wine.wine_department_niddepartment_seq", allocationSize=1)
   @Column(name = "niddepartment")
   private int id;
   

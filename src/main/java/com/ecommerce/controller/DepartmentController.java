@@ -17,13 +17,13 @@ import com.ecommerce.service.DepartmentService;
 
 @RestController
 @EnableAutoConfiguration
-@RequestMapping(value = "/ecommerce")
+@RequestMapping(value = "/ecommerce/department")
 public class DepartmentController {
 
   @Autowired
   DepartmentService departmentService;
 
-  @RequestMapping(value = "/test", method = RequestMethod.GET)
+  @RequestMapping(value = "test", method = RequestMethod.GET)
   public String test() {
     return "DepartmentController test success!";
   }
@@ -45,9 +45,14 @@ public class DepartmentController {
     return departmentService.findByName(name);
   }
 
-  @RequestMapping(value = "save/{token}")
+  @RequestMapping(value = "save/{token}", method = RequestMethod.PUT)
   public Response save(@RequestBody Department department) throws EcommerceSystemException {
     return departmentService.save(department);
   }
 
+  @RequestMapping(value = "deleteById/{token}/{id}", method = RequestMethod.DELETE)
+  public Response deleteById(@PathVariable("id") Integer id) throws EcommerceSystemException {
+    return departmentService.deleteById(id);
+  }
+  
 }

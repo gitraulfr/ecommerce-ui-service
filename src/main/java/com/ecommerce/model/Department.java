@@ -26,11 +26,19 @@ public class Department implements Serializable {
   private String sdepartment;
   
   @Column(name = "bisactive")
-  private String bisactive;
+  private boolean bisactive;
   
+  /**
+   * Empty constructor
+   */
   protected Department() { }
   
-  public Department(String sdepartment, String bisactive) {
+  /**
+   * Constructor with parameters
+   * @param sdepartment
+   * @param bisactive
+   */
+  public Department(String sdepartment, boolean bisactive) {
     this.sdepartment = sdepartment;
     this.bisactive = bisactive;
   }
@@ -43,19 +51,19 @@ public class Department implements Serializable {
     this.niddepartment = niddepartment;
   }
   
-  public String getSiddepartment() {
+  public String getSdepartment() {
     return sdepartment;
   }
   
-  public void setSiddepartment(String siddepartment) {
-    this.sdepartment = siddepartment;
+  public void setSdepartment(String sdepartment) {
+    this.sdepartment = sdepartment;
   }
   
-  public String getBisactive() {
+  public boolean getBisactive() {
     return bisactive;
   }
   
-  public void setBisactive(String bisactive) {
+  public void setBisactive(boolean bisactive) {
     this.bisactive = bisactive;
   }
   

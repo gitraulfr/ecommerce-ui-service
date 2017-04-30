@@ -1,26 +1,20 @@
 package com.ecommerce.http.response;
 
-import com.ecommerce.dto.CatalogDto;
+import java.util.List;
 
-public class DepartmentResponse {
+import com.ecommerce.dto.DepartmentDto;
+import com.ecommerce.http.Response;
+
+public class DepartmentResponse extends Response {
   
-  private String result;
-  private CatalogDto catalog;
-
-  public String getResult() {
-    return result;
+  private List<DepartmentDto> departments;
+  
+  public List<DepartmentDto> getDepartments() {
+    return departments;
   }
 
-  public void setResult(String result) {
-    this.result = result;
+  public void setDepartments(List<DepartmentDto> departments) {
+    this.departments = departments;
   }
   
-  public CatalogDto getCatalog() {
-    return catalog;
-  }
-
-  public void setCatalog(CatalogDto catalog) {
-    this.catalog = catalog;
-  }
-
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.exception.EcommerceSystemException;
-import com.ecommerce.http.Response;
+import com.ecommerce.http.ResponseBody;
 import com.ecommerce.model.Department;
 import com.ecommerce.service.DepartmentService;
 
@@ -29,29 +29,29 @@ public class DepartmentController {
   }
 
   @RequestMapping(value = "findAll/{token}", method = RequestMethod.POST)
-  public ResponseEntity<Response> findAll(@PathVariable("token") String token) throws EcommerceSystemException {
+  public ResponseEntity<ResponseBody> findAll(@PathVariable("token") String token) throws EcommerceSystemException {
     return departmentService.findAll();
   }
 
   @RequestMapping(value = "findOne/{token}/{id}", method = RequestMethod.POST)
-  public ResponseEntity<Response> findOne(@PathVariable("token") String token, @PathVariable("id") Integer id)
+  public ResponseEntity<ResponseBody> findOne(@PathVariable("token") String token, @PathVariable("id") Integer id)
       throws EcommerceSystemException {
     return departmentService.findOne(id);
   }
 
   @RequestMapping(value = "findByName/{token}/{name}", method = RequestMethod.POST)
-  public ResponseEntity<Response> findByName(@PathVariable("token") String token, @PathVariable("name") String name)
+  public ResponseEntity<ResponseBody> findByName(@PathVariable("token") String token, @PathVariable("name") String name)
       throws EcommerceSystemException {
     return departmentService.findByName(name);
   }
 
-  @RequestMapping(value = "save/{token}", method = RequestMethod.PUT)
-  public Response save(@RequestBody Department department) throws EcommerceSystemException {
+  @RequestMapping(value = "save/{token}", method = RequestMethod.POST)
+  public ResponseBody save(@RequestBody Department department) throws EcommerceSystemException {
     return departmentService.save(department);
   }
 
   @RequestMapping(value = "deleteById/{token}/{id}", method = RequestMethod.DELETE)
-  public Response deleteById(@PathVariable("id") Integer id) throws EcommerceSystemException {
+  public ResponseBody deleteById(@PathVariable("id") Integer id) throws EcommerceSystemException {
     return departmentService.deleteById(id);
   }
   

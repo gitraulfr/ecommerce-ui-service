@@ -1,6 +1,6 @@
 package com.ecommerce.http;
 
-public class Response {
+public class ResponseBody {
   
   private String result;
 

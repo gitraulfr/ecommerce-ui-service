@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.ecommerce.dao.DepartmentDao;
 import com.ecommerce.exception.EcommerceSystemException;
-import com.ecommerce.http.Response;
+import com.ecommerce.http.ResponseBody;
 import com.ecommerce.http.response.DepartmentResponse;
 
 import com.ecommerce.model.Department;
@@ -21,61 +21,48 @@ public class DepartmentService {
   @Autowired
   DepartmentDao departmentDao;
 
-  public ResponseEntity<Response> findAll() throws EcommerceSystemException {
+  public ResponseEntity<ResponseBody> findAll() throws EcommerceSystemException {
     Iterable<Department> departments = departmentDao.findAll();
-
-    if (departments == null) {
-      return new ResponseEntity<>(null, HttpStatus.OK);
-    }
-
-    DepartmentResponse response = new DepartmentResponse();
-    response.setResult(ServiceConstants.DETAILS_SUCCESS);
-    response.setDepartments(departments);
-
+    DepartmentResponse response = this.getDepartmentResponse(departments);
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
 
-  public ResponseEntity<Response> findOne(Integer id) throws EcommerceSystemException {
+  public ResponseEntity<ResponseBody> findOne(Integer id) throws EcommerceSystemException {
     Department department = departmentDao.findOne(id);
-
-    if (department == null) {
+   
+    if (department == null)
       return new ResponseEntity<>(null, HttpStatus.OK);
-    }
-
-    DepartmentResponse response = new DepartmentResponse();
-    response.setResult(ServiceConstants.DETAILS_SUCCESS);
 
     Iterable<Department> departments = Arrays.asList(department);
-    response.setDepartments(departments);
-
+    DepartmentResponse response = this.getDepartmentResponse(departments);
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
 
-  public ResponseEntity<Response> findByName(String name) throws EcommerceSystemException {
+  public ResponseEntity<ResponseBody> findByName(String name) throws EcommerceSystemException {
     Iterable<Department> departments = departmentDao.findByName(name);
-
-    if (departments == null) {
-      return new ResponseEntity<>(null, HttpStatus.OK);
-    }
-
-    DepartmentResponse response = new DepartmentResponse();
-    response.setResult(ServiceConstants.DETAILS_SUCCESS);
-    response.setDepartments(departments);
-
+    DepartmentResponse response = this.getDepartmentResponse(departments);
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
 
-  public Response save(Department department) throws EcommerceSystemException {
+  public ResponseBody save(Department department) throws EcommerceSystemException {
     departmentDao.save(department);
-
-    Response response = new Response();
-    response.setResult(ServiceConstants.DETAILS_SUCCESS);
+    return this.getResponseBody();
+  }
+  
+  public ResponseBody deleteById(Integer id) throws EcommerceSystemException {
+    departmentDao.delete(id);
+    return this.getResponseBody();
+  }
+  
+  private DepartmentResponse getDepartmentResponse(Iterable<Department> departments) {
+    DepartmentResponse response = new DepartmentResponse();
+    response.setResult(ServiceConstants.RESPONSE_SUCCESS);
+    response.setDepartments(departments);
     return response;
   }
-
-  public Response deleteById(Integer id) throws EcommerceSystemException {
-    departmentDao.delete(id);
-    Response response = new Response();
+  
+  private ResponseBody getResponseBody() {
+    ResponseBody response = new ResponseBody();
     response.setResult(ServiceConstants.DETAILS_SUCCESS);
     return response;
   }

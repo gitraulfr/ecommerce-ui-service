@@ -1,9 +1,9 @@
 package com.ecommerce.http.response;
 
-import com.ecommerce.http.Response;
+import com.ecommerce.http.ResponseBody;
 import com.ecommerce.model.Department;
 
-public class DepartmentResponse extends Response {
+public class DepartmentResponse extends ResponseBody {
   
   private Iterable<Department> departments;
   

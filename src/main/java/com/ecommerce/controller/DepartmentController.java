@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.exception.EcommerceSystemException;
 import com.ecommerce.http.Response;
-
+import com.ecommerce.model.Department;
 import com.ecommerce.service.DepartmentService;
 
 @RestController
 @EnableAutoConfiguration
 @RequestMapping(value = "/ecommerce")
 public class DepartmentController {
-  
+
   @Autowired
   DepartmentService departmentService;
 
@@ -27,20 +27,27 @@ public class DepartmentController {
   public String test() {
     return "DepartmentController test success!";
   }
-  
+
   @RequestMapping(value = "findAll/{token}", method = RequestMethod.POST)
   public ResponseEntity<Response> findAll(@PathVariable("token") String token) throws EcommerceSystemException {
     return departmentService.findAll();
   }
-  
+
   @RequestMapping(value = "findOne/{token}/{id}", method = RequestMethod.POST)
-  public ResponseEntity<Response> findOne(@PathVariable("token") String token, @PathVariable("id") Integer id) throws EcommerceSystemException {
+  public ResponseEntity<Response> findOne(@PathVariable("token") String token, @PathVariable("id") Integer id)
+      throws EcommerceSystemException {
     return departmentService.findOne(id);
   }
-  
+
   @RequestMapping(value = "findByName/{token}/{name}", method = RequestMethod.POST)
-  public ResponseEntity<Response> findByName(@PathVariable("token") String token, @PathVariable("name") String name) throws EcommerceSystemException {
+  public ResponseEntity<Response> findByName(@PathVariable("token") String token, @PathVariable("name") String name)
+      throws EcommerceSystemException {
     return departmentService.findByName(name);
+  }
+
+  @RequestMapping(value = "save/{token}")
+  public Response save(@RequestBody Department department) throws EcommerceSystemException {
+    return departmentService.save(department);
   }
 
 }

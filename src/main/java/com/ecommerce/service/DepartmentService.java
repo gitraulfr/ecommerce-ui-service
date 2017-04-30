@@ -1,6 +1,7 @@
 package com.ecommerce.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,14 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.ecommerce.dao.DepartmentDao;
-import com.ecommerce.dto.DepartmentDto;
 import com.ecommerce.exception.EcommerceSystemException;
 import com.ecommerce.http.Response;
 import com.ecommerce.http.response.DepartmentResponse;
-//import com.ecommerce.dto.CatalogDto;
-//import com.ecommerce.dto.DepartmentDto;
-//import com.ecommerce.http.response.DepartmentResponse;
-//import com.ecommerce.utils.ServiceConstants;
+
 import com.ecommerce.model.Department;
 import com.ecommerce.utils.ServiceConstants;
 
@@ -27,29 +24,17 @@ public class DepartmentService {
   DepartmentDao departmentDao;
   
   public ResponseEntity<Response> findAll() throws EcommerceSystemException {
-    Iterable<Department> deps = departmentDao.findAll();
+    Iterable<Department> departments = departmentDao.findAll();
     
-    if(deps == null) {
+    if(departments == null) {
       return new ResponseEntity<>(null, HttpStatus.OK);
     }
       
-    List<DepartmentDto> departments = new ArrayList<>();
-    
-    for(Department department : deps) {
-      DepartmentDto ddto = new DepartmentDto();
-      ddto.setId(department.getNiddepartment());
-      ddto.setDepartment(department.getSdepartment());
-      ddto.setActive(department.getBisactive());
-      departments.add(ddto);
-    }
-    
     DepartmentResponse response = new DepartmentResponse();
     response.setResult(ServiceConstants.DETAILS_SUCCESS);
     response.setDepartments(departments);
-    
-    ResponseEntity<Response> responseEntity = new ResponseEntity<>(response, HttpStatus.OK);
-    
-    return responseEntity;
+           
+    return new ResponseEntity<>(response, HttpStatus.OK);
   }
   
   public ResponseEntity<Response> findOne(Integer id) throws EcommerceSystemException {
@@ -62,45 +47,32 @@ public class DepartmentService {
     DepartmentResponse response = new DepartmentResponse();
     response.setResult(ServiceConstants.DETAILS_SUCCESS);
     
-    List<DepartmentDto> departments = new ArrayList<>();
-    DepartmentDto ddto = new DepartmentDto();
-    ddto.setId(department.getNiddepartment());
-    ddto.setDepartment(department.getSdepartment());
-    ddto.setActive(department.getBisactive());
-    departments.add(ddto);
-    
+    Iterable<Department> departments = Arrays.asList(department);  
     response.setDepartments(departments);
-    
-    ResponseEntity<Response> responseEntity = new ResponseEntity<>(response, HttpStatus.OK);
-    
-    return responseEntity;
-    
+        
+    return new ResponseEntity<>(response, HttpStatus.OK);
   }
   
-  public ResponseEntity<Response> findByName(String sdepartment) {
-    Iterable<Department> deps = departmentDao.findBySdepartment(sdepartment);
+  public ResponseEntity<Response> findByName(String name) throws EcommerceSystemException {
+    Iterable<Department> departments = departmentDao.findByName(name);
     
-    if(deps == null) {
+    if(departments == null) {
       return new ResponseEntity<>(null, HttpStatus.OK);
-    }
-      
-    List<DepartmentDto> departments = new ArrayList<>();
-    
-    for(Department department : deps) {
-      DepartmentDto ddto = new DepartmentDto();
-      ddto.setId(department.getNiddepartment());
-      ddto.setDepartment(department.getSdepartment());
-      ddto.setActive(department.getBisactive());
-      departments.add(ddto);
     }
     
     DepartmentResponse response = new DepartmentResponse();
     response.setResult(ServiceConstants.DETAILS_SUCCESS);
     response.setDepartments(departments);
-    
-    ResponseEntity<Response> responseEntity = new ResponseEntity<>(response, HttpStatus.OK);
-    
-    return responseEntity;
+        
+    return new ResponseEntity<>(response, HttpStatus.OK);
+  }
+  
+  public Response save(Department department) throws EcommerceSystemException {
+    departmentDao.save(department);
+        
+    DepartmentResponse response = new DepartmentResponse();
+    response.setResult(ServiceConstants.DETAILS_SUCCESS);
+    return response;
   }
   
 }

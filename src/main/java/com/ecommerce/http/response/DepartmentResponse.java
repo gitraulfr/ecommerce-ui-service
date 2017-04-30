@@ -1,19 +1,17 @@
 package com.ecommerce.http.response;
 
-import java.util.List;
-
-import com.ecommerce.dto.DepartmentDto;
 import com.ecommerce.http.Response;
+import com.ecommerce.model.Department;
 
 public class DepartmentResponse extends Response {
   
-  private List<DepartmentDto> departments;
+  private Iterable<Department> departments;
   
-  public List<DepartmentDto> getDepartments() {
+  public Iterable<Department> getDepartments() {
     return departments;
   }
 
-  public void setDepartments(List<DepartmentDto> departments) {
+  public void setDepartments(Iterable<Department> departments) {
     this.departments = departments;
   }
   

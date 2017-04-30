@@ -20,13 +20,14 @@ public class Department implements Serializable {
   
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private int niddepartment;
+  @Column(name = "niddepartment")
+  private int id;
   
   @Column(name = "sdepartment")
-  private String sdepartment;
+  private String name;
   
   @Column(name = "bisactive")
-  private boolean bisactive;
+  private boolean active;
   
   /**
    * Empty constructor
@@ -38,33 +39,33 @@ public class Department implements Serializable {
    * @param sdepartment
    * @param bisactive
    */
-  public Department(String sdepartment, boolean bisactive) {
-    this.sdepartment = sdepartment;
-    this.bisactive = bisactive;
+  public Department(String name, boolean active) {
+    this.name = name;
+    this.active = active;
   }
   
-  public int getNiddepartment() {
-    return niddepartment;
+  public int getId() {
+    return id;
   }
-  
-  public void setNiddepartment(int niddepartment) {
-    this.niddepartment = niddepartment;
+
+  public void setId(int id) {
+    this.id = id;
   }
-  
-  public String getSdepartment() {
-    return sdepartment;
+
+  public String getName() {
+    return name;
   }
-  
-  public void setSdepartment(String sdepartment) {
-    this.sdepartment = sdepartment;
+
+  public void setName(String name) {
+    this.name = name;
   }
-  
-  public boolean getBisactive() {
-    return bisactive;
+
+  public boolean isActive() {
+    return active;
   }
-  
-  public void setBisactive(boolean bisactive) {
-    this.bisactive = bisactive;
+
+  public void setActive(boolean active) {
+    this.active = active;
   }
   
 }
